@@ -2,16 +2,21 @@ abstract class Cell{
   float xPos;
   float yPos;
   float size;
-  
-  
   void move(){
   }
   void display(Player other){
+  }
+  boolean eats(Cell other){
+    return true;
+  }
+  float getSize(){
+    return size;
   }
 }
 
 class Player extends Cell{
   float easing = 0.01;
+  
   
   Player(float x, float y, float size){
     xPos = x;
@@ -19,6 +24,19 @@ class Player extends Cell{
     this.size = size;
   }
   
+  boolean eats(Cell other){
+    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    if (d < other.getSize() + this.getSize() ){
+      //this.size += other.getSize();
+      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      this.size = sqrt (sum / PI);
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+    
   float getSize(){
     return size;
   }
@@ -26,13 +44,11 @@ class Player extends Cell{
   public void display(){
     noStroke();
     fill(255, 102, 0);
-    ellipse(xPos, yPos, size, size);
-    float targetX = mouseX ;
-    float dx = targetX - xPos;
-    xPos += dx * easing ;
-    float targetY = mouseY ;
-    float dy = targetY - yPos;
-    yPos += dy * easing ;
+    ellipse(xPos, yPos, size *2, size * 2);
+    PVector vel = new PVector(mouseX - width/2, mouseY - height/2);
+    vel.setMag(3);
+    xPos += vel.x;
+    yPos += vel.y;
     ellipse(xPos, yPos, size, size);
     
 }
@@ -54,13 +70,16 @@ class Standard extends Cell {
     else{
       fill(234, 21, 60);
     }
-    ellipse(xPos, yPos, size, size);
+    ellipse(xPos, yPos, size * 2, size * 2);
   }
    
   void move(){
     
   }
   
+  float getSize(){
+    return size;
+  }
 }
 
 class Nemocyte extends Cell{
