@@ -6,8 +6,8 @@ abstract class Cell{
   }
   void display(Player other){
   }
-  boolean eats(Cell other){
-    return true;
+  int eats(Cell other){
+    return 3;
   }
   float getSize(){
     return size;
@@ -15,7 +15,7 @@ abstract class Cell{
 }
 
 class Player extends Cell{
-  float easing = 0.01;
+  
   
   
   Player(float x, float y, float size){
@@ -24,17 +24,23 @@ class Player extends Cell{
     this.size = size;
   }
   
-  boolean eats(Cell other){
+  int eats(Cell other){
     float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
     if (d < other.getSize() + this.getSize() ){
-      //this.size += other.getSize();
       float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      if (this.size > other.size){
       this.size = sqrt (sum / PI);
-      return true;
+      return 1;
+      }
+      else if (other.size > this.size){
+        if (this.size != 0){
+        other.size = sqrt(sum / PI);
+        this.size = 0;
+        return 2;
+        }
+      }
     }
-    else{
-      return false;
-    }
+    return 3;
   }
     
   float getSize(){
@@ -45,12 +51,13 @@ class Player extends Cell{
     noStroke();
     fill(255, 102, 0);
     ellipse(xPos, yPos, size *2, size * 2);
+    if (size != 0){
     PVector vel = new PVector(mouseX - width/2, mouseY - height/2);
     vel.setMag(3);
     xPos += vel.x;
     yPos += vel.y;
     ellipse(xPos, yPos, size, size);
-    
+    }
 }
 }
 
