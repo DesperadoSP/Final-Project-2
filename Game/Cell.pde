@@ -53,7 +53,7 @@ class Player extends Cell{
     ellipse(xPos, yPos, size *2, size * 2);
     if (size != 0){
     PVector vel = new PVector(mouseX - width/2, mouseY - height/2);
-    vel.setMag(3);
+    vel.setMag(1);
     xPos += vel.x;
     yPos += vel.y;
     ellipse(xPos, yPos, size * 2, size * 2);
@@ -80,14 +80,7 @@ class Standard extends Cell {
     }
     ellipse(xPos, yPos, size * 2, size * 2);
     
-    float copyX = random(-width, width);
-    float dx = copyX - xPos;
-    float copyY = random(-height, height);
-    float dy = copyY - yPos;
-    xPos += dx * 0.001;
-    yPos += dy * 0.001;
     
-    ellipse(xPos, yPos, size * 2, size * 2);
   }
   }
    
