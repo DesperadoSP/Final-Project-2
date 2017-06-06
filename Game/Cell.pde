@@ -56,7 +56,7 @@ class Player extends Cell{
     vel.setMag(3);
     xPos += vel.x;
     yPos += vel.y;
-    ellipse(xPos, yPos, size, size);
+    ellipse(xPos, yPos, size * 2, size * 2);
     }
 }
 }
@@ -70,6 +70,7 @@ class Standard extends Cell {
   }
   
   public void display(Player other){
+    if (playah.size != 0){
     noStroke();
     if (other.getSize() >= size){
       fill(59, 190, 196);
@@ -78,10 +79,35 @@ class Standard extends Cell {
       fill(234, 21, 60);
     }
     ellipse(xPos, yPos, size * 2, size * 2);
+    
+    float copyX = random(-width, width);
+    float dx = copyX - xPos;
+    float copyY = random(-height, height);
+    float dy = copyY - yPos;
+    xPos += dx * 0.001;
+    yPos += dy * 0.001;
+    
+    ellipse(xPos, yPos, size * 2, size * 2);
+  }
   }
    
-  void move(){
-    
+  int eats(Cell other){
+    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    if (d < other.getSize() + this.getSize() ){
+      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      if (this.size > other.size){
+      this.size = sqrt (sum / PI);
+      return 1;
+      }
+      else if (other.size > this.size){
+        if (this.size != 0){
+        other.size = sqrt(sum / PI);
+        this.size = 0;
+        return 2;
+        }
+      }
+    }
+    return 3;
   }
   
   float getSize(){

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 ArrayList<Cell> array;
 Player playah;
 float zoom = 1;
+int index = 1;
 
 public void setup(){
   size(1400, 1000);
@@ -22,6 +23,7 @@ public void setup(){
 }
 
 public void draw(){
+  
   background(255);
   translate(width / 2, height / 2);
   float newzoom = 64 / playah.size;
@@ -49,12 +51,20 @@ public void draw(){
   }
   else if (playah.eats(array.get(i)) == 2){
     array.remove(0);
-    PFont f = createFont("Arial", 16, true);
-    textFont(f, 16);
-    fill(0);
-    text("rekt", 700, 500);
-    
+  }
+  }
+  for (int i = 1; i < array.size(); i++){
+    for (int j = 1; j < array.size(); j++){
+    if ((i != j) && (i < array.size())){
+      if ((array.get(i)).eats(array.get(j)) == 1){
+        array.remove(j);
+      }
+      else if ((array.get(i)).eats(array.get(j)) == 2){
+        array.remove(i);
+      }
+    }
+  }
   }
  
-}
+
 }
