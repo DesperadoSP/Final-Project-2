@@ -3,8 +3,7 @@ abstract class Cell{
   float yPos;
   float size;
   float easing;
-  void move(){
-  }
+  
   void display(Player other){
   }
   int eats(Cell other){
@@ -16,8 +15,6 @@ abstract class Cell{
 }
 
 class Player extends Cell{
-  
-  
   
   Player(float x, float y, float size){
     easing = 50;
@@ -58,7 +55,7 @@ class Player extends Cell{
     ellipse(xPos, yPos, size *2, size * 2);
     if (size != 0){
     PVector vel = new PVector(mouseX - width/2, mouseY - height/2);
-    vel.setMag(30 / this.size + 1);
+    vel.setMag(30 / this.size + 5);
     xPos += vel.x;
     yPos += vel.y;
     ellipse(xPos, yPos, size * 2, size * 2);
@@ -85,7 +82,11 @@ class Standard extends Cell {
       fill(234, 21, 60);
     }
     ellipse(xPos, yPos, size * 2, size * 2);
-    
+    PVector vel = new PVector(random(width) - width/2, random(height) - height/2);
+    vel.setMag(30 / this.size + 5);
+    xPos += vel.x;
+    yPos += vel.y;
+    ellipse(xPos, yPos, size * 2, size * 2);
     
   }
   }
@@ -116,8 +117,24 @@ class Standard extends Cell {
 }
 
 class Nemocyte extends Cell{
-  void move(){
-    
+  
+  int eats(Cell other){
+    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    if (d < other.getSize() + this.getSize() ){
+      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      if (this.size > other.size){
+      this.size = sqrt (sum / PI);
+      return 1;
+      }
+      else if (other.size > this.size){
+        if (this.size != 0){
+        other.size = sqrt(sum / PI);
+        this.size = 0;
+        return 2;
+        }
+      }
+    }
+    return 3;
   }
   
   void display(){
@@ -127,8 +144,25 @@ class Nemocyte extends Cell{
 }
 
 class Repulsor extends Cell{
-  void move(){
-    
+  
+  int eats(Cell other){
+    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    if (d < other.getSize() + this.getSize() ){
+      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      if (this.size > other.size){
+      this.size = sqrt (sum / PI);
+      return 1;
+      }
+      else if (other.size > this.size){
+        if (this.size != 0){
+        other.size = sqrt(sum / PI);
+        
+        this.size = 0;
+        return 2;
+        }
+      }
+    }
+    return 3;
   }
   
   void display(){
@@ -137,20 +171,52 @@ class Repulsor extends Cell{
 }
 
 class Ferax extends Cell{
-  void move(){
-    
-  }
   
+  int eats(Cell other){
+    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    if (d < other.getSize() + this.getSize() ){
+      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      if (this.size > other.size){
+      this.size = sqrt (sum / PI);
+      return 1;
+      }
+      else if (other.size > this.size){
+        if (this.size != 0){
+        other.size = sqrt(sum / PI);
+        
+        this.size = 0;
+        return 2;
+        }
+      }
+    }
+    return 3;
+  }
   void display(){
     
   }
 }
 
 class Ovarium extends Cell{
-  void move(){
-    
-  }
   
+  int eats(Cell other){
+    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
+    if (d < other.getSize() + this.getSize() ){
+      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
+      if (this.size > other.size){
+      this.size = sqrt (sum / PI);
+      return 1;
+      }
+      else if (other.size > this.size){
+        if (this.size != 0){
+        other.size = sqrt(sum / PI);
+        
+        this.size = 0;
+        return 2;
+        }
+      }
+    }
+    return 3;
+  }
   void display(){
     
   }
