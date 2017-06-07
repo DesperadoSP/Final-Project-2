@@ -2,6 +2,7 @@ abstract class Cell{
   float xPos;
   float yPos;
   float size;
+  float easing;
   void move(){
   }
   void display(Player other){
@@ -19,6 +20,7 @@ class Player extends Cell{
   
   
   Player(float x, float y, float size){
+    easing = 50;
     xPos = x;
     yPos = y;
     this.size = size;
@@ -30,13 +32,16 @@ class Player extends Cell{
       float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
       if (this.size > other.size){
       this.size = sqrt (sum / PI);
+      
       return 1;
       }
       else if (other.size > this.size){
         if (this.size != 0){
         other.size = sqrt(sum / PI);
         this.size = 0;
+        
         return 2;
+        
         }
       }
     }
@@ -53,7 +58,7 @@ class Player extends Cell{
     ellipse(xPos, yPos, size *2, size * 2);
     if (size != 0){
     PVector vel = new PVector(mouseX - width/2, mouseY - height/2);
-    vel.setMag(1);
+    vel.setMag(30 / this.size + 1);
     xPos += vel.x;
     yPos += vel.y;
     ellipse(xPos, yPos, size * 2, size * 2);
@@ -64,6 +69,7 @@ class Player extends Cell{
 class Standard extends Cell {
   
   Standard(float x, float y, float size){
+    easing = 50;
     xPos = x;
     yPos = y;
     this.size = size;
@@ -95,6 +101,7 @@ class Standard extends Cell {
       else if (other.size > this.size){
         if (this.size != 0){
         other.size = sqrt(sum / PI);
+        
         this.size = 0;
         return 2;
         }
