@@ -82,11 +82,7 @@ class Standard extends Cell {
       fill(234, 21, 60);
     }
     ellipse(xPos, yPos, size * 2, size * 2);
-    PVector vel = new PVector(random(width) - width/2, random(height) - height/2);
-    vel.setMag(30 / this.size + 5);
-    xPos += vel.x;
-    yPos += vel.y;
-    ellipse(xPos, yPos, size * 2, size * 2);
+    
     
   }
   }
@@ -118,6 +114,13 @@ class Standard extends Cell {
 
 class Nemocyte extends Cell{
   
+  Nemocyte(float x, float y, float size){
+    easing = 50;
+    xPos = x;
+    yPos = y;
+    this.size = size;
+  }
+  
   int eats(Cell other){
     float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
     if (d < other.getSize() + this.getSize() ){
@@ -137,41 +140,26 @@ class Nemocyte extends Cell{
     return 3;
   }
   
-  void display(){
+  void display(Player other){
+    if (playah.size != 0){
+    noStroke();
+    fill(90, 193, 51);
+    ellipse(xPos, yPos, size * 2, size * 2);
     
   }
-  
+  }
 }
 
-class Repulsor extends Cell{
-  
-  int eats(Cell other){
-    float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
-    if (d < other.getSize() + this.getSize() ){
-      float sum = PI * this.size * this.size + PI * other.getSize() * other.getSize();
-      if (this.size > other.size){
-      this.size = sqrt (sum / PI);
-      return 1;
-      }
-      else if (other.size > this.size){
-        if (this.size != 0){
-        other.size = sqrt(sum / PI);
-        
-        this.size = 0;
-        return 2;
-        }
-      }
-    }
-    return 3;
-  }
-  
-  void display(){
-    
-  }
-}
 
 class Ferax extends Cell{
   
+  Ferax(float x, float y, float size){
+    easing = 50;
+    xPos = x;
+    yPos = y;
+    this.size = size;
+  }
+  
   int eats(Cell other){
     float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
     if (d < other.getSize() + this.getSize() ){
@@ -191,13 +179,25 @@ class Ferax extends Cell{
     }
     return 3;
   }
-  void display(){
+  void display(Player other){
+    if (playah.size != 0){
+    noStroke();
+    fill(127, 50, 216);
+    ellipse(xPos, yPos, size * 2, size * 2);
     
+  }
   }
 }
 
 class Ovarium extends Cell{
   
+  Ovarium(float x, float y, float size){
+    easing = 50;
+    xPos = x;
+    yPos = y;
+    this.size = size;
+  }
+  
   int eats(Cell other){
     float d = dist(this.xPos, this.yPos, other.xPos, other.yPos);
     if (d < other.getSize() + this.getSize() ){
@@ -217,7 +217,12 @@ class Ovarium extends Cell{
     }
     return 3;
   }
-  void display(){
+  void display(Player other){
+    if (playah.size != 0){
+    noStroke();
+    fill(154, 178, 52);
+    ellipse(xPos, yPos, size * 2, size * 2);
     
+  }
   }
 }

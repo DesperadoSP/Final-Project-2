@@ -24,7 +24,10 @@ public void setup(){
     while((y > 350) && (y < 450)){
       y = random(-height, height);
     }
+    float rand = random(10);
+    if (rand < 6){
     array.add(new Standard(x, y, random (30) + 2));
+    }
   }
 }
 
@@ -33,7 +36,8 @@ public void draw(){
     if (JOptionPane.showConfirmDialog(null, "You lost. New Game?", "blown away", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
       setup();
     }
-    else {exit();
+    else {
+      exit();
     }
   }
   background(255);
