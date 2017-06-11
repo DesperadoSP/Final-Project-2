@@ -1,6 +1,6 @@
 # Osmos  
   Osmos is a single player game, in which you control an orange cell with your mouse. Your goal is to grow by absorbing other cells, and to become the biggest cell there is.  
-**Working Features**
+**Working Features**  
       - Direct your cell's movement using your mouse.  
       - When two cells come in contact with each other, the bigger of the two absorbs the smaller one, growing in size.  
       - The bigger you are, the slower you move.  
