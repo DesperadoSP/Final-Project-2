@@ -145,7 +145,20 @@ class Nemocyte extends Cell{
     noStroke();
     fill(90, 193, 51);
     ellipse(xPos, yPos, size * 2, size * 2);
-    
+    if (dist(other.xPos, other.yPos, this.xPos, this.yPos) < (this.size + other.size + 10)){
+    PVector vel = new PVector(other.xPos - this.xPos, other.yPos - this.yPos);
+    vel.setMag(30 / this.size + 5);
+    xPos -= vel.x;
+    yPos -= vel.y;
+    ellipse(xPos, yPos, size * 2, size * 2);
+    }
+    else{
+    PVector vel = new PVector(random(-width, width), random(-height, height));
+    vel.setMag(30 / this.size + 5);
+    xPos += vel.x;
+    yPos += vel.y;
+    ellipse(xPos, yPos, size * 2, size * 2);
+  }
   }
   }
 }
@@ -182,11 +195,31 @@ class Ferax extends Cell{
   void display(Player other){
     if (playah.size != 0){
     noStroke();
-    fill(127, 50, 216);
+    fill(5, 5, 5);
     ellipse(xPos, yPos, size * 2, size * 2);
-    
+    if (this.size > other.size){
+    PVector vel = new PVector(other.xPos - this.xPos, other.yPos - this.yPos);
+    vel.setMag(30 / this.size);
+    xPos += vel.x;
+    yPos += vel.y;
+    ellipse(xPos, yPos, size * 2, size * 2);
+    }
+    else if (dist(other.xPos, other.yPos, this.xPos, this.yPos) < (this.size + other.size + 10)){
+    PVector vel = new PVector(other.xPos - this.xPos, other.yPos - this.yPos);
+    vel.setMag(30 / this.size + 5);
+    xPos -= vel.x;
+    yPos -= vel.y;
+    ellipse(xPos, yPos, size * 2, size * 2);
+    }
+    else{
+    PVector vel = new PVector(random(-width, width), random(-height, height));
+    vel.setMag(30 / this.size + 5);
+    xPos += vel.x;
+    yPos += vel.y;
+    ellipse(xPos, yPos, size * 2, size * 2);
   }
   }
+}
 }
 
 class Ovarium extends Cell{
@@ -218,9 +251,14 @@ class Ovarium extends Cell{
     return 3;
   }
   void display(Player other){
-    if (playah.size != 0){
+    if (other.size != 0){
     noStroke();
-    fill(154, 178, 52);
+    fill(187, 36, 198);
+    ellipse(xPos, yPos, size * 2, size * 2);
+    PVector vel = new PVector(random(-width, width), random(-height, height));
+    vel.setMag(30 / this.size + 5);
+    xPos += vel.x;
+    yPos += vel.y;
     ellipse(xPos, yPos, size * 2, size * 2);
     
   }
